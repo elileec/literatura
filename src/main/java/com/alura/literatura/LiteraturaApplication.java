@@ -1,6 +1,8 @@
 package com.alura.literatura;
 
 import com.alura.literatura.model.DatosLibro;
+import com.alura.literatura.model.LibroBusqueda;
+import com.alura.literatura.model.RegistroAutor;
 import com.alura.literatura.service.ConsumoAPI;
 import com.alura.literatura.service.ConvierteDatos;
 import org.springframework.boot.CommandLineRunner;
@@ -17,11 +19,14 @@ public class LiteraturaApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		var consumoApi = new ConsumoAPI();
-		var json = consumoApi.obtenerDatos("https://gutendex.com/books/" + "/?search=dickens" );
+		String titulo = "Bleak House";
+		String json = consumoApi.obtenerDatos("https://gutendex.com/books"+"/?search=" + titulo.replace(" ","+"));
 		System.out.println(json);
 		ConvierteDatos conversor = new ConvierteDatos();
-		var datos = conversor.obtenerDatos(json, DatosLibro.class);
-
+		LibroBusqueda datos = conversor.obtenerDatos(json, LibroBusqueda.class);
+		System.out.println(datos.resultados().get(0).titulo()+" "+datos.resultados().get(0).totalDescargas());
 
 	}
 }
+
+//https://github.com/pedro8734/literatura/blob/main/src/main/java/com/aluracursos/desafioLibros/model/Datos.java
