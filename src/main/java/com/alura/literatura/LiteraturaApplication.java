@@ -9,6 +9,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.sql.SQLOutput;
+
 @SpringBootApplication
 public class LiteraturaApplication implements CommandLineRunner {
 
@@ -24,7 +26,11 @@ public class LiteraturaApplication implements CommandLineRunner {
 		System.out.println(json);
 		ConvierteDatos conversor = new ConvierteDatos();
 		LibroBusqueda datos = conversor.obtenerDatos(json, LibroBusqueda.class);
-		System.out.println(datos.resultados().get(0).titulo()+" "+datos.resultados().get(0).totalDescargas());
+		System.out.println("TITULO: "+datos.resultados().get(0).titulo());
+		System.out.println("AUTOR: "+datos.resultados().get(0).autor().get(0).nombre());
+		System.out.println("LENGUAJE:  "+datos.resultados().get(0).idiomas());
+		System.out.println("TOTAL DESCARGAS: " + datos.resultados().get(0).totalDescargas());
+
 
 	}
 }
