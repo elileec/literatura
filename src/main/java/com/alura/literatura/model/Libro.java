@@ -18,8 +18,6 @@ public class Libro {
         this.titulo = datosLibro.titulo();
         this.autor = datosLibro.autor();
         this.idiomas = datosLibro.idiomas();
-        this.fechaNacimiento = datosLibro.fechaNacimiento();
-        this.fechaFallecimiento = datosLibro.fechaFallecimiento();
         this.totalDescargas = datosLibro.totalDescargas();
 
 

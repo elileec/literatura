@@ -17,6 +17,7 @@ public class Principal {
     private Scanner teclado = new Scanner(System.in);
     private ConsumoAPI consumoApi = new ConsumoAPI();
     private ConvierteDatos conversor = new ConvierteDatos();
+    private List<DatosLibro> datoslibros = new ArrayList<>();
 
     
 
@@ -26,6 +27,7 @@ public class Principal {
         while(opcion!=0){
             var menu= """
                     1. Buscar libro
+                    2. Mostrar libros buscados
                     0. Salir
                     """;
             System.out.println(menu);
@@ -36,6 +38,9 @@ public class Principal {
                 case 1:
                     EncontrarLibro();
                     break;
+                case 2:
+                    mostrarLibrosBuscados();
+                    break;
                 case 0:
                     System.out.println("ESTOY SALIENDO DEL PROGRAMA");
                     break;
@@ -44,6 +49,12 @@ public class Principal {
             }
         }
     }
+
+    https://github.com/pedro8734/literatura/blob/main/src/main/java/com/aluracursos/desafioLibros/principal/Principal.java
+    comparar el codigo de cada clase
+    vamos en el video https://app.aluracursos.com/course/java-persistencia-datos-consultas-spring-data-jpa/task/87369
+
+
     private DatosLibro getLibros(){
         System.out.println("Escriba el nombre del libro a buscar");
         String libro = teclado.nextLine();
@@ -51,7 +62,7 @@ public class Principal {
         System.out.println(json);
         ConvierteDatos conversor = new ConvierteDatos();
         var datos = conversor.obtenerDatos(json, LibroBusqueda.class);
-        System.out.println("ESTOS DON LOS DATOS DESPUES DE CONVERTIR"+datos.resultados().getFirst().autor().getFirst().nombre());
+        //System.out.println("ESTOS DON LOS DATOS DESPUES DE CONVERTIR"+datos.resultados().getFirst().autor().getFirst().nombre());
 
         return (datos.resultados().get(0));
 
@@ -59,11 +70,18 @@ public class Principal {
     }
     private void EncontrarLibro() {
          DatosLibro datos = getLibros();
+         datoslibros.add(datos);
+        System.out.println(datos);
 
-        System.out.println("VALOR EN PRINCIPAL"+datos.titulo());
+
+
       //  https://app.aluracursos.com/course/java-persistencia-datos-consultas-spring-data-jpa/task/87368
       //    System.out.println("ESTE FUE EL LIBRO QUE ENCONTRE" + respuesta.resultados().get(0).autor().get(0).fechaFallecimiento());
 
+    }
+
+    private void mostrarLibrosBuscados() {
+        datoslibros.forEach(System.out::println);
     }
 
 }
