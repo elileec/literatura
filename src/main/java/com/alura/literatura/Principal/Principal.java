@@ -62,7 +62,7 @@ public class Principal {
         System.out.println(json);
         ConvierteDatos conversor = new ConvierteDatos();
         var datos = conversor.obtenerDatos(json, LibroBusqueda.class);
-        //System.out.println("ESTOS DON LOS DATOS DESPUES DE CONVERTIR"+datos.resultados().getFirst().autor().getFirst().nombre());
+
 
         return (datos.resultados().get(0));
 
@@ -74,14 +74,10 @@ public class Principal {
         System.out.println(datos);
 
 
-
-      //  https://app.aluracursos.com/course/java-persistencia-datos-consultas-spring-data-jpa/task/87368
-      //    System.out.println("ESTE FUE EL LIBRO QUE ENCONTRE" + respuesta.resultados().get(0).autor().get(0).fechaFallecimiento());
-
     }
 
     private void mostrarLibrosBuscados() {
         datoslibros.forEach(System.out::println);
     }
 
-}.
+}
