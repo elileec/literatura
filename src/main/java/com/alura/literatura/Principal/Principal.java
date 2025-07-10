@@ -50,10 +50,6 @@ public class Principal {
         }
     }
 
-    https://github.com/pedro8734/literatura/blob/main/src/main/java/com/aluracursos/desafioLibros/principal/Principal.java
-    comparar el codigo de cada clase
-    vamos en el video https://app.aluracursos.com/course/java-persistencia-datos-consultas-spring-data-jpa/task/87369
-
 
     private DatosLibro getLibros(){
         System.out.println("Escriba el nombre del libro a buscar");
