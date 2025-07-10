@@ -67,7 +67,7 @@ public class Principal {
     private void EncontrarLibro() {
          DatosLibro datos = getLibros();
          datoslibros.add(datos);
-        System.out.println(datos);
+        //System.out.println(datos);
 
 
     }
