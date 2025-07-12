@@ -4,6 +4,8 @@ import com.alura.literatura.model.Libro;
 import com.alura.literatura.model.DatosLibro;
 import com.alura.literatura.model.Libro;
 import com.alura.literatura.model.LibroBusqueda;
+import com.alura.literatura.repository.AutorRepository;
+import com.alura.literatura.repository.LibroRepository;
 import com.alura.literatura.service.ConsumoAPI;
 import com.alura.literatura.service.ConvierteDatos;
 
