@@ -1,6 +1,6 @@
 package com.alura.literatura.Principal;
 
-//import com.alura.literatura.model.Libro;
+import com.alura.literatura.model.Libro;
 import com.alura.literatura.model.DatosLibro;
 import com.alura.literatura.model.Libro;
 import com.alura.literatura.model.LibroBusqueda;
@@ -18,8 +18,17 @@ public class Principal {
     private ConsumoAPI consumoApi = new ConsumoAPI();
     private ConvierteDatos conversor = new ConvierteDatos();
     private List<DatosLibro> datoslibros = new ArrayList<>();
+    private LibroRepositorio libroRepo;
+    private AutorRepositorio autorRepo;
+    private List<Libro> libros;
 
-    
+    public Principal(LibroRepositorio libro_repo, AutorRepositorio autor_repo) {
+        this.libroRepo = libro_repo;
+        this.autorRepo = autor_repo;
+    }
+
+OJO REVISAR DESDE private LibroRepositorio libroRepo;
+
 
     public void Menu(){
         var opcion=-1;
@@ -58,18 +67,12 @@ public class Principal {
         System.out.println(json);
         ConvierteDatos conversor = new ConvierteDatos();
         var datos = conversor.obtenerDatos(json, LibroBusqueda.class);
-
-
         return (datos.resultados().get(0));
-
-
     }
+
     private void EncontrarLibro() {
          DatosLibro datos = getLibros();
          datoslibros.add(datos);
-        //System.out.println(datos);
-
-
     }
 
     private void mostrarLibrosBuscados() {

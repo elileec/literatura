@@ -1,28 +1,57 @@
 package com.alura.literatura.model;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import jakarta.persistence.*;
 
 import java.util.List;
 
+//@Entity
+//@Table(name="libros")
 public class Libro {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long Id;
+    @Column(unique = true)
     private String titulo;
-    private List<RegistroAutor> autor;
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "libro_autor",
+            joinColumns = @JoinColumn(name = "libro_id"),
+            inverseJoinColumns = @JoinColumn(name = "autor_id")
+    )
+    private List<Autor> autore;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "libro_idiomas", joinColumns = @JoinColumn(name = "libro_id"))
+    @Column(name = "idioma")
     private List<String> idiomas;
-    private int fechaNacimiento;
-    private int fechaFallecimiento;
     private Integer totalDescargas;
+
+    public Libro(){}
 
 
     public Libro(DatosLibro datosLibro){
         this.titulo = datosLibro.titulo();
-        this.autor = datosLibro.autor();
         this.idiomas = datosLibro.idiomas();
         this.totalDescargas = datosLibro.totalDescargas();
 
 
     }
 
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = id;
+    }
+
+    public List<Autor> getAutor() {
+        return autore;
+    }
+
+    public void setAutor(List<Autor> autor) {
+        this.autore = autore;
+    }
     public String getTitulo() {
         return titulo;
     }
@@ -31,13 +60,7 @@ public class Libro {
         this.titulo = titulo;
     }
 
-    public List<RegistroAutor> getAutor() {
-        return autor;
-    }
 
-    public void setAutor(List<RegistroAutor> autor) {
-        this.autor = autor;
-    }
 
     public List<String> getIdiomas() {
         return idiomas;
@@ -47,21 +70,6 @@ public class Libro {
         this.idiomas = idiomas;
     }
 
-    public int getFechaNacimiento() {
-        return fechaNacimiento;
-    }
-
-    public void setFechaNacimiento(int fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
-
-    public int getFechaFallecimiento() {
-        return fechaFallecimiento;
-    }
-
-    public void setFechaFallecimiento(int fechaFallecimiento) {
-        this.fechaFallecimiento = fechaFallecimiento;
-    }
 
     public Integer getTotalDescargas() {
         return totalDescargas;
@@ -75,10 +83,7 @@ public class Libro {
     public String toString() {
         return
                 "titulo='" + titulo + '\'' +
-                ", autor=" + autor +
                 ", idiomas=" + idiomas +
-                ", fechaNacimiento=" + fechaNacimiento +
-                ", fechaFallecimiento=" + fechaFallecimiento +
                 ", totalDescargas=" + totalDescargas;
     }
 }

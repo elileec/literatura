@@ -22,8 +22,6 @@ public class LiteraturaApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-
-	//	String titulo = "Frankenstein";
 		Principal principal = new Principal();
 		principal.Menu();
 
