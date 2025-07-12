@@ -5,8 +5,8 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
-//@Entity
-//@Table(name="libros")
+@Entity
+@Table(name="libros")
 public class Libro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +19,7 @@ public class Libro {
             joinColumns = @JoinColumn(name = "libro_id"),
             inverseJoinColumns = @JoinColumn(name = "autor_id")
     )
-    private List<Autor> autore;
+    private List<Autor> autores;
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "libro_idiomas", joinColumns = @JoinColumn(name = "libro_id"))
     @Column(name = "idioma")
@@ -45,12 +45,12 @@ public class Libro {
         Id = id;
     }
 
-    public List<Autor> getAutor() {
-        return autore;
+    public List<Autor> getAutores() {
+        return autores;
     }
 
-    public void setAutor(List<Autor> autor) {
-        this.autore = autore;
+    public void setAutores(List<Autor> autores) {
+        this.autores = autores;
     }
     public String getTitulo() {
         return titulo;
@@ -81,8 +81,7 @@ public class Libro {
 
     @Override
     public String toString() {
-        return
-                "titulo='" + titulo + '\'' +
+        return "titulo='" + titulo + '\'' +
                 ", idiomas=" + idiomas +
                 ", totalDescargas=" + totalDescargas;
     }

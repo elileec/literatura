@@ -15,20 +15,17 @@ import java.util.stream.Collectors;
 public class Principal {
 
     private Scanner teclado = new Scanner(System.in);
-    private ConsumoAPI consumoApi = new ConsumoAPI();
     private ConvierteDatos conversor = new ConvierteDatos();
+    private ConsumoAPI consumoApi = new ConsumoAPI();
     private List<DatosLibro> datoslibros = new ArrayList<>();
-    private LibroRepositorio libroRepo;
-    private AutorRepositorio autorRepo;
+    private LibroRepository libroRepo;
+    private AutorRepository autorRepo;
     private List<Libro> libros;
 
-    public Principal(LibroRepositorio libro_repo, AutorRepositorio autor_repo) {
-        this.libroRepo = libro_repo;
-        this.autorRepo = autor_repo;
+    public Principal(LibroRepository repolibro, AutorRepository repoautor) {
+        this.libroRepo = repolibro;
+        this.autorRepo = repoautor;
     }
-
-OJO REVISAR DESDE private LibroRepositorio libroRepo;
-
 
     public void Menu(){
         var opcion=-1;
