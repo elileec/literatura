@@ -1,9 +1,7 @@
 package com.alura.literatura.Principal;
 
+import com.alura.literatura.model.*;
 import com.alura.literatura.model.Libro;
-import com.alura.literatura.model.DatosLibro;
-import com.alura.literatura.model.Libro;
-import com.alura.literatura.model.LibroBusqueda;
 import com.alura.literatura.repository.AutorRepository;
 import com.alura.literatura.repository.LibroRepository;
 import com.alura.literatura.service.ConsumoAPI;
@@ -21,14 +19,14 @@ public class Principal {
     private ConvierteDatos conversor = new ConvierteDatos();
     private ConsumoAPI consumoApi = new ConsumoAPI();
     private List<DatosLibro> datoslibros = new ArrayList<>();
-    private LibroRepository libroRepo;
-    private AutorRepository autorRepo;
+    private LibroRepository repolibro;
+    private AutorRepository repoAutor;
     private List<Libro> libros;
     private Optional<Libro> buscandoLibro;
 
     public Principal(LibroRepository repolibro, AutorRepository repoautor) {
-        this.libroRepo = repolibro;
-        this.autorRepo = repoautor;
+        this.repolibro = repolibro;
+        this.repoAutor = repoautor;
     }
 
     public void Menu(){
@@ -36,8 +34,16 @@ public class Principal {
 
         while(opcion!=0){
             var menu= """
-                    1. Buscar libro
-                    2. Mostrar libros almacenados
+                    1. Buscar libro.
+                    2. Mostrar libros almacenados.
+                    3. Buscar libro por título.
+                    4. Lista los libros registrados.
+                    5. Lista los autores registrados.
+                    6. Los diez libros con mas descargas.
+                    7. Bucasr libro por idioma.
+                    8. Mostrar autores vivos por año.
+                    9. Los cinco autores con más tiempo de fallecidos.
+                    10.Buscar autor por su nombre. 
                     0. Salir
                     """;
             System.out.println(menu);
@@ -73,7 +79,33 @@ public class Principal {
 
     private void EncontrarLibro() {
          DatosLibro datos = getLibros();
-         datoslibros.add(datos);
+         if(datos == null)return;
+         Optional<Libro> libroAllado = repolibro.findByTituloContainsIgnoreCase(datos.titulo());
+         if (libroAllado.isPresent()){
+             System.out.println("Libro ya existe en la base de deatos");
+         }else{
+             Libro libro = new Libro(datos);
+             repolibro.save(libro);
+             if(datos.idiomas() !=null){
+                 List<String> idiomas = datos.idiomas().stream()
+                         .map(String::toLowerCase)
+                         .distinct()
+                         .collect(Collectors.toList());
+                 libro.setIdiomas(idiomas);
+             }
+             if(datos.autor()!=null){
+                 List<Autor> autores = (List<Autor>) datos.autor().stream()
+                         .map(datoAutor -> repoAutor
+                         .findByNombre(datoAutor.nombre())
+                         .orElseGet(()-> repoAutor.save(new Autor(datoAutor))))
+                         .collect(Collectors.toList());
+                 libro.setAutores(autores);
+                 autores.forEach(i->i.setLibros(List.of(libro)));
+             }
+             System.out.println("Libro fue almacenado");
+             System.out.println(libro);
+         }
+
     }
 
     private void mostrarLibrosBuscados() {
