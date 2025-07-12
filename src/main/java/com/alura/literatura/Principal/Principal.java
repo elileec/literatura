@@ -9,6 +9,7 @@ import com.alura.literatura.service.ConvierteDatos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -21,6 +22,7 @@ public class Principal {
     private LibroRepository libroRepo;
     private AutorRepository autorRepo;
     private List<Libro> libros;
+    private Optional<Libro> buscandoLibro;
 
     public Principal(LibroRepository repolibro, AutorRepository repoautor) {
         this.libroRepo = repolibro;
@@ -33,7 +35,7 @@ public class Principal {
         while(opcion!=0){
             var menu= """
                     1. Buscar libro
-                    2. Mostrar libros buscados
+                    2. Mostrar libros almacenados
                     0. Salir
                     """;
             System.out.println(menu);
